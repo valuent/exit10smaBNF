@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trading Terminal</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
+    <script src="./app.js"></script>
+    <h1 class="time" id="time">Time:</h1>
+    <div class="container">
+      <div class="nifty">
+        <div class="top-sect">
+          <div class="price" id="niftyPrice"></div>
+          <div class="SMAprice" id="niftySMA"></div>
+          <div class="entryPrice" id="niftyEntry"></div>
+        </div>
+
+        <div class="qtyBtn">
+          <button class="qty" id="NFqty8">NF Qty 8</button>
+          <button class="qty" id="NFqty4">NF Qty 4</button>
+          <button class="qty" id="NFqty2">NF Qty 2</button>
+          <div class="qtyconfirm" id="nfqtyset"></div>
+        </div>
+
+        <div class="button-sect">
+          <button class="lngbtn" id="niftyLongBtn">Nifty long</button>
+          <button id="niftyShortBtn">Nifty Short</button>
+          <button class="lngbtn" id="niftyLongExitBtn">Nifty long Exit</button>
+          <button id="niftyShortExitBtn">Nifty Short Exit</button>
+          <button id="niftyResetBtn">Nifty Reset</button>
+        </div>
+
+        <div class="bottom-sect">
+          <div class="entryStatus" id="niftyEntryStatus"></div>
+          <div class="entryLong" id="niftyEntryLong"></div>
+          <div class="entryShort" id="niftyEntryShort"></div>
+        </div>
+      </div>
+
+      <div class="banknifty">
+        <div class="top-sect">
+          <div class="price" id="bnfPrice"></div>
+          <div class="SMAprice" id="bnfSMA"></div>
+          <div class="entryPrice" id="bnfEntry"></div>
+        </div>
+        <div class="qtyBtn">
+          <button class="qty" id="BNFqty8">BNF Qty 8</button>
+          <button class="qty" id="BNFqty4">BNF Qty 4</button>
+          <button class="qty" id="BNFqty2">BNF Qty 2</button>
+          <div class="qtyconfirm" id="bnfqtyset"></div>
+        </div>
+        <div class="button-sect">
+          <button class="lngbtn" id="bnfLongBtn">Banknifty long</button>
+          <button id="bnfShortBtn">Banknifty Short</button>
+          <button class="lngbtn" id="bnfLongExitBtn">
+            Banknifty long Exit
+          </button>
+          <button id="bnfShortExitBtn">Banknifty Short Exit</button>
+          <button id="bnfResetBtn">Banknifty Reset</button>
+        </div>
+
+        <div class="bottom-sect">
+          <div class="entryStatus" id="bnfEntryStatus"></div>
+          <div class="entryLong" id="bnfEntryLong"></div>
+          <div class="entryShort" id="bnfEntryShort"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="mtm" id="mtm"></div>
+      <div class="closemin" id="closemin"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      socket.on("U_Sma", (data) => {
+        document.getElementById("time").innerText = data;
+      });
+
+      socket.on("U_PriceNifty", (data) => {
+        document.getElementById("niftyPrice").innerText = "Nifty LTP : " + data;
+      });
+      socket.on("U_SmaNifty", (data) => {
+        document.getElementById("niftySMA").innerText =
+          "Nifty 10 SMA : " + data;
+      });
+      socket.on("U_EntryPriceNifty", (data) => {
+        document.getElementById("niftyEntry").innerText =
+          "Nifty Entry Price: " + data;
+      });
+
+      socket.on("U_NiftyQty", (data) => {
+        document.getElementById("nfqtyset").innerText = "Nifty Qty: " + data;
+      });
+
+      socket.on("U_BnfQty", (data) => {
+        document.getElementById("bnfqtyset").innerText = "BNF Qty: " + data;
+      });
+
+      socket.on("U_PosStatusNifty", (data) => {
+        document.getElementById("niftyEntryStatus").innerText =
+          "Nifty Position Status : " + data;
+      });
+      socket.on("U_LongFlagNifty", (data) => {
+        document.getElementById("niftyEntryLong").innerText =
+          "Nifty Long Status : " + data;
+      });
+      socket.on("U_ShortFlagNifty", (data) => {
+        document.getElementById("niftyEntryShort").innerText =
+          "Nifty Short Status : " + data;
+      });
+
+      // BNF Sockets Print
+      socket.on("U_PriceBnf", (data) => {
+        document.getElementById("bnfPrice").innerText =
+          "BankNifty LTP : " + data;
+      });
+      socket.on("U_SmaBnf", (data) => {
+        document.getElementById("bnfSMA").innerText =
+          "BankNifty 10 SMA : " + data;
+      });
+      socket.on("U_EntryPriceBnf", (data) => {
+        document.getElementById("bnfEntry").innerText =
+          "BankNifty Entry price : " + data;
+      });
+      socket.on("U_PosStatusBnf", (data) => {
+        document.getElementById("bnfEntryStatus").innerText =
+          "BankNifty Position Status : " + data;
+      });
+      socket.on("U_LongFlagBnf", (data) => {
+        document.getElementById("bnfEntryLong").innerText =
+          "BankNifty Long Status : " + data;
+      });
+      socket.on("U_ShortFlagBnf", (data) => {
+        document.getElementById("bnfEntryShort").innerText =
+          "BankNifty Short Status : " + data;
+      });
+
+      socket.on("U_LiveMtm", (data) => {
+        document.getElementById("mtm").innerText = "Live MTM : " + data;
+      });
+      socket.on("U_ClosingMin", (data) => {
+        document.getElementById("closemin").innerText = "Closing Min : " + data;
+      });
+
+      //   Button Socket
+      const NFqty8 = document.getElementById("NFqty8");
+      const NFqty4 = document.getElementById("NFqty4");
+      const NFqty2 = document.getElementById("NFqty2");
+
+      const niftyLEBtn = document.getElementById("niftyLongBtn");
+      const niftySEBtn = document.getElementById("niftyShortBtn");
+
+      const niftyLXBtn = document.getElementById("niftyLongExitBtn");
+      const niftySXBtn = document.getElementById("niftyShortExitBtn");
+      const niftyResetBtn = document.getElementById("niftyResetBtn");
+
+      NFqty8.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("NiftyQtySet8");
+      });
+      NFqty4.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("NiftyQtySet4");
+      });
+      NFqty2.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("NiftyQtySet2");
+      });
+
+      niftyLEBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("NiftyLE");
+      });
+
+      niftySEBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("NiftySE");
+      });
+
+      niftyLXBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("NiftyLX");
+      });
+
+      niftySXBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("NiftySX");
+      });
+
+      niftyResetBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("NiftyReset");
+      });
+
+      // BNF Sockets
+
+      const BNFqty8 = document.getElementById("BNFqty8");
+      const BNFqty4 = document.getElementById("BNFqty4");
+      const BNFqty2 = document.getElementById("BNFqty2");
+
+      const bnfLEBtn = document.getElementById("bnfLongBtn");
+      const bnfSEBtn = document.getElementById("bnfShortBtn");
+
+      const bnfLXBtn = document.getElementById("bnfLongExitBtn");
+      const bnfSXBtn = document.getElementById("bnfShortExitBtn");
+      const bnfResetBtn = document.getElementById("bnfResetBtn");
+
+      BNFqty8.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("BnfQtySet8");
+      });
+      BNFqty4.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("BnfQtySet4");
+      });
+      BNFqty2.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("BnfQtySet2");
+      });
+
+      bnfLEBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("BnfLE");
+      });
+
+      bnfSEBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("BnfSE");
+      });
+
+      bnfLXBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("BnfLX");
+      });
+
+      bnfSXBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("BnfSX");
+      });
+
+      bnfResetBtn.addEventListener("click", () => {
+        // Emit a message to the server when the button is clicked
+        socket.emit("BnfReset");
+      });
+    </script>
+  </body>
+</html>

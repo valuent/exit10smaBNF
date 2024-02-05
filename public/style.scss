@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: inter;
+  background-color: rgb(22, 22, 22);
+  color: aliceblue;
+}
+
+.time {
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  .nifty {
+    margin-left: 100px;
+    width: 100%;
+  }
+  .banknifty {
+    margin-right: 100px;
+    width: 100%;
+  }
+
+  .top-sect {
+    div {
+      margin-bottom: 30px;
+      font-size: 25px;
+    }
+  }
+  .button-sect {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    .lngbtn {
+      transition: 0.3s ease-in-out;
+      &:hover {
+        background-color: rgb(175, 255, 175);
+      }
+    }
+    button {
+      width: 45%;
+      margin: 10px;
+      padding: 15px;
+      font-size: 20px;
+      margin-top: 20px;
+      cursor: Pointer;
+      transition: 0.3s ease-in-out;
+      background-color: aliceblue;
+      border: 0;
+      &:hover {
+        background-color: rgb(255, 175, 175);
+      }
+    }
+  }
+
+  .bottom-sect {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 15px;
+    margin-top: 40px;
+  }
+
+  .qtyBtn {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
+    button {
+      background-color: aliceblue;
+      border: 0;
+      padding: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      width: 140px;
+    }
+    .qtyconfirm {
+      margin-top: 10px;
+    }
+  }
+}
+.footer {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 30px;
+  margin-top: 40px;
+}
