@@ -251,7 +251,7 @@ var smaOf20bnf = 0;
 var Sma20CalcBNF = () => {
   var sum = 0;
   var currentClose = parseInt(ltpBanknifty);
-  sum = sumOf19bnf + currentClose;
+  sum = sumOf19Bnf + currentClose;
   smaOf20bnf = sum / 20;
   // console.log(smaOf10bnf);
 };
