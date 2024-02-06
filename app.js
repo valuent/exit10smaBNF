@@ -166,6 +166,22 @@ var dataForAverageNifty = () => {
 
 setInterval(dataForAverageNifty, 100);
 
+var jsonDataNifty20sma;
+var sumOf19Nifty;
+var dataForAverageNifty20SMA = () => {
+  sumOf19Nifty = 0;
+  jsonDataNifty20sma = jsonfile.readFileSync(NFfile);
+  last19 = jsonDataNifty20sma.table.slice(1).slice(-19);
+
+  for (var i = 0; i < 19; i++) {
+    // console.log(lastNine[i].close);
+    sumOf19Nifty = sumOf19Nifty + parseInt(last19[i].close);
+  }
+  // console.log(sumOfNineNifty);
+};
+
+setInterval(dataForAverageNifty20SMA, 100);
+
 var smaOf10Nifty = 0;
 var Sma10CalcNifty = () => {
   var sum = 0;
@@ -176,6 +192,17 @@ var Sma10CalcNifty = () => {
 };
 
 setInterval(Sma10CalcNifty, 100);
+
+var smaOf20Nifty = 0;
+var Sma20CalcNifty = () => {
+  var sum = 0;
+  var currentClose = parseInt(ltpNifty);
+  sum = sumOf19Nifty + currentClose;
+  smaOf20Nifty = sum / 20;
+  // console.log(smaOf10Nifty);
+};
+
+setInterval(Sma20CalcNifty, 100);
 
 var jsonDatabnf;
 var sumOfNinebnf;
@@ -193,6 +220,22 @@ var dataForAverageBnf = () => {
 
 setInterval(dataForAverageBnf, 100);
 
+var jsonDataBnf20sma;
+var sumOf19Bnf;
+var dataForAverageBnf20SMA = () => {
+  sumOf19Bnf = 0;
+  jsonDataBnf20sma = jsonfile.readFileSync(BNFfile);
+  last19 = jsonDataBnf20sma.table.slice(1).slice(-19);
+
+  for (var i = 0; i < 19; i++) {
+    // console.log(lastNine[i].close);
+    sumOf19Bnf = sumOf19Bnf + parseInt(last19[i].close);
+  }
+  // console.log(sumOfNineNifty);
+};
+
+setInterval(dataForAverageBnf20SMA, 100);
+
 var smaOf10bnf = 0;
 var Sma10CalcBNF = () => {
   var sum = 0;
@@ -203,6 +246,17 @@ var Sma10CalcBNF = () => {
 };
 
 setInterval(Sma10CalcBNF, 100);
+
+var smaOf20bnf = 0;
+var Sma20CalcBNF = () => {
+  var sum = 0;
+  var currentClose = parseInt(ltpBanknifty);
+  sum = sumOf19bnf + currentClose;
+  smaOf20bnf = sum / 20;
+  // console.log(smaOf10bnf);
+};
+
+setInterval(Sma20CalcBNF, 100);
 
 //
 niftyQty = 8;
@@ -317,6 +371,21 @@ var niftyCheckShortSL = () => {
   }
 };
 
+var niftyCheckShortSL20sma = () => {
+  if (niftyPosFlag == 1 && niftyShortFlag == 1) {
+    if (
+      parseInt(mins) == closeMinute &&
+      parseInt(secs) > 58 &&
+      parseInt(milisec) >= 500
+    ) {
+      if (smaOf20Nifty < ltpNifty) {
+        niftyShortExit();
+        console.log("SL exec");
+      }
+    }
+  }
+};
+
 var niftyCheckLongSL = () => {
   if (niftyPosFlag == 1 && niftyLongFlag == 1) {
     if (
@@ -332,8 +401,25 @@ var niftyCheckLongSL = () => {
   }
 };
 
+var niftyCheckLongSL20sma = () => {
+  if (niftyPosFlag == 1 && niftyLongFlag == 1) {
+    if (
+      parseInt(mins) == closeMinute &&
+      parseInt(secs) > 58 &&
+      parseInt(milisec) >= 500
+    ) {
+      if (smaOf20Nifty > ltpNifty) {
+        niftyLongExit();
+        console.log("SL exec");
+      }
+    }
+  }
+};
+
 setInterval(niftyCheckShortSL, 100);
 setInterval(niftyCheckLongSL, 100);
+setInterval(niftyCheckShortSL20sma, 100);
+setInterval(niftyCheckLongSL20sma, 100);
 
 // BNF All funtion
 
@@ -424,6 +510,21 @@ var bnfCheckShortSL = () => {
   }
 };
 
+var bnfCheckShortSL20sma = () => {
+  if (bnfPosFlag == 1 && bnfShortFlag == 1) {
+    if (
+      parseInt(mins) == closeMinute &&
+      parseInt(secs) > 58 &&
+      parseInt(milisec) >= 500
+    ) {
+      if (smaOf20bnf < ltpBanknifty) {
+        bnfShortExit();
+        console.log("SL exec");
+      }
+    }
+  }
+};
+
 var bnfCheckLongSL = () => {
   if (bnfPosFlag == 1 && bnfLongFlag == 1) {
     if (
@@ -438,6 +539,26 @@ var bnfCheckLongSL = () => {
     }
   }
 };
+
+var bnfCheckLongSL20sma = () => {
+  if (bnfPosFlag == 1 && bnfLongFlag == 1) {
+    if (
+      parseInt(mins) == closeMinute &&
+      parseInt(secs) > 58 &&
+      parseInt(milisec) >= 500
+    ) {
+      if (smaOf20bnf > ltpBanknifty) {
+        bnfLongExit();
+        console.log("SL exec");
+      }
+    }
+  }
+};
+
+setInterval(bnfCheckShortSL, 100);
+setInterval(bnfCheckLongSL, 100);
+setInterval(bnfCheckShortSL20sma, 100);
+setInterval(bnfCheckLongSL20sma, 100);
 
 var niftyReset = () => {
   niftyEntryPrice = parseInt(0);
@@ -454,9 +575,6 @@ var bnfReset = () => {
   bnfShortFlag = parseInt(0);
   console.log(bnfEntryPrice, bnfPosFlag, bnfLongFlag);
 };
-
-setInterval(bnfCheckShortSL, 100);
-setInterval(bnfCheckLongSL, 100);
 
 var mtmLive = 0;
 var getMtm = () => {
