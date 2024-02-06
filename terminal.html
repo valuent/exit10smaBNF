@@ -87,7 +87,10 @@
       });
       socket.on("U_SmaNifty", (data) => {
         document.getElementById("niftySMA").innerText =
-          "Nifty 10 SMA : " + data;
+          "Nf 10 SMA: " +
+          data.sma10ofnifty +
+          " Nf 20 SMA: " +
+          data.sma20ofnifty;
       });
       socket.on("U_EntryPriceNifty", (data) => {
         document.getElementById("niftyEntry").innerText =
@@ -122,7 +125,7 @@
       });
       socket.on("U_SmaBnf", (data) => {
         document.getElementById("bnfSMA").innerText =
-          "BankNifty 10 SMA : " + data;
+          "Bnf 10 SMA: " + data.sma10ofbnf + " Bnf 20 SMA: " + data.sma20ofbnf;
       });
       socket.on("U_EntryPriceBnf", (data) => {
         document.getElementById("bnfEntry").innerText =

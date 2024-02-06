@@ -599,8 +599,11 @@ io.on("connection", (socket) => {
     socket.emit("U_Sma", dateEX);
     socket.emit("U_PriceNifty", ltpNifty);
     socket.emit("U_PriceBnf", ltpBanknifty);
-    socket.emit("U_SmaNifty", smaOf10Nifty);
-    socket.emit("U_SmaBnf", smaOf10bnf);
+    socket.emit("U_SmaNifty", {
+      sma10ofnifty: smaOf10Nifty,
+      sma20ofnifty: smaOf20Nifty,
+    });
+    socket.emit("U_SmaBnf", { sma10ofbnf: smaOf10bnf, sma20ofbnf: smaOf20bnf });
     socket.emit("U_EntryPriceNifty", niftyEntryPrice);
     socket.emit("U_EntryPriceBnf", bnfEntryPrice);
     socket.emit("U_PosStatusNifty", niftyPosFlag);
