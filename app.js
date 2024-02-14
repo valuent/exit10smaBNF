@@ -259,25 +259,25 @@ var Sma20CalcBNF = () => {
 setInterval(Sma20CalcBNF, 100);
 
 //
-niftyQty = 8;
-var niftySetQty8 = () => {
-  niftyQty = 8;
+niftyQty = 10;
+var niftySetQtyFull = () => {
+  niftyQty = 10;
 };
-var niftySetQty4 = () => {
-  niftyQty = 4;
+var niftySetQtyHalf = () => {
+  niftyQty = 5;
 };
-var niftySetQty2 = () => {
+var niftySetQtyQtr = () => {
   niftyQty = 2;
 };
 
-bnfQty = 8;
-var bnfSetQty8 = () => {
-  bnfQty = 8;
+bnfQty = 10;
+var bnfSetQtyFull = () => {
+  bnfQty = 10;
 };
-var bnfSetQty4 = () => {
-  bnfQty = 4;
+var bnfSetQtyHalf = () => {
+  bnfQty = 5;
 };
-var bnfSetQty2 = () => {
+var bnfSetQtyQtr = () => {
   bnfQty = 2;
 };
 
@@ -619,37 +619,37 @@ io.on("connection", (socket) => {
   }, 20);
 
   socket.on("NiftyQtySet8", () => {
-    console.log("Nifty Qty = 8 Lots");
+    console.log(`Nifty Qty = ${niftyQty} Lots`);
     // Call your function here
-    niftySetQty8();
+    niftySetQtyFull();
   });
   socket.on("NiftyQtySet4", () => {
-    console.log("Nifty Qty = 4 Lots");
+    console.log(`Nifty Qty = ${niftyQty} Lots`);
     // Call your function here
-    niftySetQty4();
+    niftySetQtyHalf();
   });
   socket.on("NiftyQtySet2", () => {
-    console.log("Nifty Qty = 2 Lots");
+    console.log(`Nifty Qty = ${niftyQty} Lots`);
     // Call your function here
-    niftySetQty2();
+    niftySetQtyQtr();
   });
 
   // BNF qty set
 
   socket.on("BnfQtySet8", () => {
-    console.log("Bank Nifty Qty = 8 Lots");
+    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
     // Call your function here
-    bnfSetQty8();
+    bnfSetQtyFull();
   });
   socket.on("BnfQtySet4", () => {
-    console.log("Bank Nifty Qty = 4 Lots");
+    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
     // Call your function here
-    bnfSetQty4();
+    bnfSetQtyHalf();
   });
   socket.on("BnfQtySet2", () => {
-    console.log("Bank Nifty Qty = 2 Lots");
+    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
     // Call your function here
-    bnfSetQty2();
+    bnfSetQtyQtr();
   });
 
   socket.on("NiftyLE", () => {
