@@ -619,37 +619,37 @@ io.on("connection", (socket) => {
   }, 20);
 
   socket.on("NiftyQtySet8", () => {
-    console.log(`Nifty Qty = ${niftyQty} Lots`);
     // Call your function here
     niftySetQtyFull();
+    console.log(`Nifty Qty = ${niftyQty} Lots`);
   });
   socket.on("NiftyQtySet4", () => {
-    console.log(`Nifty Qty = ${niftyQty} Lots`);
     // Call your function here
     niftySetQtyHalf();
+    console.log(`Nifty Qty = ${niftyQty} Lots`);
   });
   socket.on("NiftyQtySet2", () => {
-    console.log(`Nifty Qty = ${niftyQty} Lots`);
     // Call your function here
     niftySetQtyQtr();
+    console.log(`Nifty Qty = ${niftyQty} Lots`);
   });
 
   // BNF qty set
 
   socket.on("BnfQtySet8", () => {
-    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
     // Call your function here
     bnfSetQtyFull();
+    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
   });
   socket.on("BnfQtySet4", () => {
-    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
     // Call your function here
     bnfSetQtyHalf();
+    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
   });
   socket.on("BnfQtySet2", () => {
-    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
     // Call your function here
     bnfSetQtyQtr();
+    console.log(`Bank Nifty Qty = ${bnfQty} Lots`);
   });
 
   socket.on("NiftyLE", () => {
