@@ -259,7 +259,7 @@ var Sma20CalcBNF = () => {
 setInterval(Sma20CalcBNF, 100);
 
 //
-niftyQty = 10;
+var niftyQty = 10;
 var niftySetQtyFull = () => {
   niftyQty = 10;
 };
@@ -270,7 +270,7 @@ var niftySetQtyQtr = () => {
   niftyQty = 2;
 };
 
-bnfQty = 10;
+var bnfQty = 10;
 var bnfSetQtyFull = () => {
   bnfQty = 10;
 };
